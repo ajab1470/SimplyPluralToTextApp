@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="JsonToTextConverter/JsonToTextConverter.csproj" />
+  <Project Path="SPETTApp/SPETTApp.csproj" />
+</Solution>
