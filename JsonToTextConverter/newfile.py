@@ -1,9 +1,10 @@
 import json
 import os
 import re
+import sys
 #multifile = boolean, exportfile = string of export file location
-multifile = 
-exportfile = 
+multifile = sys.argv[1:][0]
+exportfile = sys.argv[1:][1]
 #handling the export json
 with open(exportfile) as file:
 	theexport=file.read()
