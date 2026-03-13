@@ -37,7 +37,7 @@
                    Text="{Binding FlounderingHelpMessage}"
                    />
 
-        <DockPanel Name="InputFilePane" Grid.Row="1" Grid.Column="0" Margin="15">
+        <DockPanel Name="InputFilePane" Grid.Row="1" Grid.Column="0" Margin="20" Grid.ColumnSpan="2">
             <TextBlock Margin="5" Text="Input Path:" DockPanel.Dock="Top" VerticalAlignment="Center" FontWeight="Medium"/>
             <Button Name="InputFileDialog" Height="30" MinWidth="30" Click="InputFileButton_Click" DockPanel.Dock="Right" 
                     Background="{StaticResource ManillaGradientBrush}" TabIndex="1" IsTabStop="True">
@@ -58,7 +58,7 @@
             </StackPanel>
         </Border>
         
-        <DockPanel Name="OutputFilePane" Grid.Row="1" Grid.Column="2" Margin="15">
+        <!--<DockPanel Name="OutputFilePane" Grid.Row="1" Grid.Column="2" Margin="15">
             <TextBlock Margin="5" Text="Output Path:" DockPanel.Dock="Top" VerticalAlignment="Center" FontWeight="Medium"/>
             <Button Name="OutputFileDialogue" Height="30" MinWidth="30" Click="OutputFileButton_Click"
                     Background="{StaticResource ManillaGradientBrush}"
@@ -68,7 +68,7 @@
             <TextBox Name="OutputFileTextBox" Height="30" DockPanel.Dock="Left" TabIndex="2" 
                      IsTabStop="True" ToolTip="Where the text files will go"
                      Text="{Binding OutputDirectory, UpdateSourceTrigger=LostFocus}"/>
-        </DockPanel>
+        </DockPanel>-->
         
         <StackPanel Name="Button" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1">
             <Button Content="Go!" Click="Button_Click" TabIndex="4" IsTabStop="True" ToolTip="Convert your JSON!">

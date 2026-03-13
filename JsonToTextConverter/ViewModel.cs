@@ -23,24 +23,24 @@ namespace JsonToTextConverter
         // NEVER TOUCH THIS! use the property InputJson instead
         private string _inputJson = string.Empty;
 
-        /// <summary>
-        /// The relative or absolute path to the desired output directory
-        /// </summary>
-        public string OutputDirectory
-        {
-            get
-            {
-                return _outputDirectory;
-            }
-            set
-            {
-                _outputDirectory = value;
-                OnPropertyChanged(nameof(OutputDirectory));
-            }
-        }
+        ///// <summary>
+        ///// The relative or absolute path to the desired output directory
+        ///// </summary>
+        //public string OutputDirectory
+        //{
+        //    get
+        //    {
+        //        return _outputDirectory;
+        //    }
+        //    set
+        //    {
+        //        _outputDirectory = value;
+        //        OnPropertyChanged(nameof(OutputDirectory));
+        //    }
+        //}
 
-        // NEVER TOUCH THIS! use the property OutputDirectory instead 
-        private string _outputDirectory = string.Empty;
+        //// NEVER TOUCH THIS! use the property OutputDirectory instead 
+        //private string _outputDirectory = string.Empty;
 
         /// <summary>
         /// If the person keeps pressing the button and accomplishing nothing, we'll launch a help message
@@ -49,7 +49,7 @@ namespace JsonToTextConverter
         {
             get
             {
-                return _unsuccessfulButtonPresses > 1 ? "Stuck? Double check your input and output paths are valid." :
+                return _unsuccessfulButtonPresses > 1 ? "Stuck? Double check that your input path is valid JSON." :
                     string.Empty;
             }
         }
@@ -81,8 +81,7 @@ namespace JsonToTextConverter
         public void Run()
         {
             // Input validation
-            if (!File.Exists(InputJson) || !".JSON".Equals(Path.GetExtension(InputJson), StringComparison.InvariantCultureIgnoreCase) ||
-                !Directory.Exists(OutputDirectory))
+            if (!File.Exists(InputJson) || !".JSON".Equals(Path.GetExtension(InputJson), StringComparison.InvariantCultureIgnoreCase))
             {
                 // this logic is for the view
                 _unsuccessfulButtonPresses++;

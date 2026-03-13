@@ -42,14 +42,14 @@ namespace SPETTApp
             }
         }
 
-        private void OutputFileButton_Click(object sender, RoutedEventArgs e)
-        {
-            var dialog = new OpenFolderDialog();
+        //private void OutputFileButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    var dialog = new OpenFolderDialog();
 
-            if (dialog.ShowDialog() ?? false)
-            {
-                _viewModel.OutputDirectory = dialog.FolderName;
-            }
-        }
+        //    if (dialog.ShowDialog() ?? false)
+        //    {
+        //        _viewModel.OutputDirectory = dialog.FolderName;
+        //    }
+        //}
     }
 }
