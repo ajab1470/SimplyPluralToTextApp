@@ -12,4 +12,10 @@
     <ProjectReference Include="..\JsonToTextConverter\JsonToTextConverter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Resource Include="Assets\kmg-design-open-folder.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>
