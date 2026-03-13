@@ -36,14 +36,20 @@ namespace SPETTApp
         {
             var dialog = new OpenFileDialog();
 
-            // TODO FINISH
+            if (dialog.ShowDialog() ?? false)
+            {
+                _viewModel.InputJson = dialog.FileName;
+            }
         }
 
         private void OutputFileButton_Click(object sender, RoutedEventArgs e)
         {
             var dialog = new OpenFolderDialog();
 
-            // TODO FINISH
+            if (dialog.ShowDialog() ?? false)
+            {
+                _viewModel.OutputDirectory = dialog.FolderName;
+            }
         }
     }
 }

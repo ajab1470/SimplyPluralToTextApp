@@ -5,12 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SPETTApp" xmlns:jsontotextconverter="clr-namespace:JsonToTextConverter;assembly=JsonToTextConverter" d:DataContext="{d:DesignInstance Type=jsontotextconverter:ViewModel}"
         mc:Ignorable="d"
-        FontSize="20"
-        Title="MainWindow" Height="450" Width="800">
+        FontSize="18"
+        Title="System Json To Text Application" Height="450" Width="800" Background="#FAFAFA">
     <Window.Resources>
         <LinearGradientBrush x:Key="CyanGradientBrush" StartPoint="0.5,0.2" EndPoint="0.5,1">
             <GradientStop Color="Cyan" Offset="0" />
             <GradientStop Color="DarkCyan" Offset="1" />
+        </LinearGradientBrush>
+        <LinearGradientBrush x:Key="ManillaGradientBrush" StartPoint="0.5,0.2" EndPoint="0.5,1">
+            <GradientStop Color="Wheat" Offset="0" />
+            <GradientStop Color="Tan" Offset="1" />
         </LinearGradientBrush>
     </Window.Resources>
     <Grid Name="LayoutRoot">
@@ -22,29 +26,50 @@
             <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
             <ColumnDefinition Width="2*"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
-        <DockPanel Name="InputFilePane" Grid.Row="1" Grid.Column="0" Margin="5">
-            <TextBlock Margin="5" Text="Input:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-            <Button Name="InputFileDialog" Height="30" MinWidth="30" Click="InputFileButton_Click" DockPanel.Dock="Right" TabIndex="1" IsTabStop="True"/>
-            <TextBox Name="InputFileTextBox" Height="30" DockPanel.Dock="Left" ToolTip="InputFileHere" TabIndex="0" IsTabStop="True"
-                     Text="{Binding InputJson}"/>
+
+        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5"
+                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   FontSize="14"
+                   Text="{Binding FlounderingHelpMessage}"
+                   />
+
+        <DockPanel Name="InputFilePane" Grid.Row="1" Grid.Column="0" Margin="15">
+            <TextBlock Margin="5" Text="Input Path:" DockPanel.Dock="Top" VerticalAlignment="Center" FontWeight="Medium"/>
+            <Button Name="InputFileDialog" Height="30" MinWidth="30" Click="InputFileButton_Click" DockPanel.Dock="Right" 
+                    Background="{StaticResource ManillaGradientBrush}" TabIndex="1" IsTabStop="True">
+                <Image Height="16" Source="/Assets/kmg-design-open-folder.png"/>
+            </Button>
+            <TextBox Name="InputFileTextBox" Height="30" DockPanel.Dock="Left" ToolTip="JSON file goes here!" TabIndex="0" IsTabStop="True"
+                     Text="{Binding InputJson, UpdateSourceTrigger=LostFocus}"/>
         </DockPanel>
-        <Border Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" BorderThickness="2" BorderBrush="Gray">
+        
+        <Border Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" 
+                BorderThickness="2" BorderBrush="Gray" Background="White"
+                Margin="5">
             <StackPanel>
                 <Label FontWeight="Bold">Settings!</Label>
-                <TextBlock Margin="5" VerticalAlignment="Center">Alters per file:</TextBlock>
-                <TextBox Name="AltersPerFileTextbox" VerticalAlignment="Center" Margin="5" TabIndex="3" ToolTip="Number of alters described in each text file created"/>
+                <CheckBox Name="MultiFileAltersCheckbox" VerticalAlignment="Center" VerticalContentAlignment="Center" TabIndex="4" 
+                          ToolTip="Whether one alter should be described in one file or many" Content="One alter many files"
+                          IsChecked="{Binding MultiFileAlters}"/>
             </StackPanel>
         </Border>
-        <DockPanel Name="OutputFilePane" Grid.Row="1" Grid.Column="2" Margin="5">
-            <TextBlock Margin="5" Text="Output:" DockPanel.Dock="Left" VerticalAlignment="Center"/>
-            <Button Name="OutputFileDialogue" Height="30" MinWidth="30" Click="OutputFileButton_Click" DockPanel.Dock="Right" TabIndex="3" IsTabStop="True"/>
-            <TextBox Name="OutputFileTextBox" Height="30" DockPanel.Dock="Left" TabIndex="2" IsTabStop="True"
-                     Text="{Binding OutputDirectory}"/>
+        
+        <DockPanel Name="OutputFilePane" Grid.Row="1" Grid.Column="2" Margin="15">
+            <TextBlock Margin="5" Text="Output Path:" DockPanel.Dock="Top" VerticalAlignment="Center" FontWeight="Medium"/>
+            <Button Name="OutputFileDialogue" Height="30" MinWidth="30" Click="OutputFileButton_Click"
+                    Background="{StaticResource ManillaGradientBrush}"
+                    DockPanel.Dock="Right" TabIndex="3" IsTabStop="True">
+                <Image Height="16" Source="/Assets/kmg-design-open-folder.png"/>
+            </Button>
+            <TextBox Name="OutputFileTextBox" Height="30" DockPanel.Dock="Left" TabIndex="2" 
+                     IsTabStop="True" ToolTip="Where the text files will go"
+                     Text="{Binding OutputDirectory, UpdateSourceTrigger=LostFocus}"/>
         </DockPanel>
+        
         <StackPanel Name="Button" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1">
             <Button Content="Go!" Click="Button_Click" TabIndex="4" IsTabStop="True" ToolTip="Convert your JSON!">
                 <Button.Style>
@@ -55,5 +80,11 @@
                 </Button.Style>
             </Button>
         </StackPanel>
+
+        <DockPanel Name="Footer" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Background="#750FB9">
+            <TextBlock Margin="10,0" FontSize="12" Foreground="#D0D0D0" FontWeight="DemiBold" DockPanel.Dock="Left" Text="This application was not made in affiliation with Octocon, LLC or Apparyllis U.G."/>
+            <TextBlock Margin="10,0" FontSize="12" Foreground="#D0D0D0" FontWeight="DemiBold" DockPanel.Dock="Right" Text="Folder icons by *kmg design* via flaticon.com." HorizontalAlignment="Right"/>
+        </DockPanel>
+
     </Grid>
 </Window>

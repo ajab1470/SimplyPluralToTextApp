@@ -16,12 +16,12 @@ namespace JsonToTextConverter
             set
             {
                 _inputJson = value;
-                PropertyChangedEvent(nameof(InputJson));
+                OnPropertyChanged(nameof(InputJson));
             }
         }
 
         // NEVER TOUCH THIS! use the property InputJson instead
-        private string _inputJson;
+        private string _inputJson = string.Empty;
 
         /// <summary>
         /// The relative or absolute path to the desired output directory
@@ -35,7 +35,7 @@ namespace JsonToTextConverter
             set
             {
                 _outputDirectory = value;
-                PropertyChangedEvent(nameof(OutputDirectory));
+                OnPropertyChanged(nameof(OutputDirectory));
             }
         }
 
@@ -43,17 +43,37 @@ namespace JsonToTextConverter
         private string _outputDirectory = string.Empty;
 
         /// <summary>
-        /// If we should show the Hint tooltip
+        /// If the person keeps pressing the button and accomplishing nothing, we'll launch a help message
         /// </summary>
-        public bool MoreThanOneUnsuccessfulButtonPress
+        public string FlounderingHelpMessage
         {
             get
             {
-                return _unsuccessfulButtonPresses > 1;
+                return _unsuccessfulButtonPresses > 1 ? "Stuck? Double check your input and output paths are valid." :
+                    string.Empty;
             }
         }
 
         private int _unsuccessfulButtonPresses = 0;
+
+        /// <summary>
+        /// When set to "true", one alter will be represented with multiple files
+        /// </summary>
+        public bool MultiFileAlters
+        {
+            get
+            {
+                return _multiFileAlters;
+            }
+            set
+            {
+                _multiFileAlters = value;
+                OnPropertyChanged(nameof(MultiFileAlters));
+            }
+        }
+
+        // NEVER TOUCH THIS! Use the property MultiFileAlters instead
+        private bool _multiFileAlters = false;
 
         // This is for the view
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -61,11 +81,12 @@ namespace JsonToTextConverter
         public void Run()
         {
             // Input validation
-            if (!File.Exists(InputJson) || !"JSON".Equals(Path.GetExtension(InputJson), StringComparison.InvariantCultureIgnoreCase))
+            if (!File.Exists(InputJson) || !".JSON".Equals(Path.GetExtension(InputJson), StringComparison.InvariantCultureIgnoreCase) ||
+                !Directory.Exists(OutputDirectory))
             {
-                // this logic is for the gui
+                // this logic is for the view
                 _unsuccessfulButtonPresses++;
-                PropertyChangedEvent(nameof(MoreThanOneUnsuccessfulButtonPress));
+                OnPropertyChanged(nameof(FlounderingHelpMessage));
 
                 // if I cared more I'd make this better but I dont
                 return;
@@ -75,13 +96,14 @@ namespace JsonToTextConverter
 
             // this logic is for the view
             _unsuccessfulButtonPresses = 0;
+            OnPropertyChanged(nameof(FlounderingHelpMessage));
         }
 
         /// <summary>
         /// Ignore me!
         /// </summary>
         /// <param name="propertyName">name of changed property</param>
-        protected void PropertyChangedEvent(string propertyName)
+        protected void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
